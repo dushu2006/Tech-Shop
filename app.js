@@ -235,12 +235,8 @@ function limitPurchase(event) {
   sideNav(1);
 }
 
-function sideNav(handler) {
-  let sideNav = document.getElementsByClassName("side-nav")[0];
-  let cover = document.getElementsByClassName("cover")[0];
-  sideNav.style.right = handler ? "0" : "-100%";
-  cover.style.display = handler ? "block" : "none";
-  CartIsEmpty();
+function sideNav() {
+  return
 }
 
 function buy(handler) {
@@ -392,12 +388,9 @@ function Banner() {
   <div class='main-cart'>${DisplayProducts()}</div>
 
   <div class='nav'>
-    <button onclick='sideNav(1)'><i class='fas fa-shopping-cart' style='font-size:2rem;'></i></button>
+    <button><i class='fas fa-shopping-cart' style='font-size:2rem;'></i></button>
     <span class= 'total-qty'>0</span>
   </div>
-  <div onclick='sideNav(0)' class='cover'></div>
-  <div class='cover purchase-cover'></div>
-  <div class='cart'>${CartSideNav()}</div>
   <div class='stock-limit'>
     <em>You Can Only Buy 10 Items For Each Product</em>
     <button class='btn-ok' onclick='limitPurchase(this)'>Okay</button>
