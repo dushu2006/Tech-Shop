@@ -412,19 +412,21 @@ function Product(product = {}) {
 </div>`;
 }
 
+function CartItemsTotal() {
+  let totalPrice = cartDetails.reduce((totalCost, item) => {
+    return totalCost + item.price * item.qty;
+  }, 0);
 
-function CartItems(cartItem = {}) {
-  let { name, price, imgSrc, qty } = cartItem;
-  return `
-<div class='cart-item'>
-  <div class='cart-img'>
-    <img src='${imgSrc}' alt='' />
-  </div>
-  <strong class='name'>${name}</strong>
-  <span class='qty-change'>${QtyBtn(qty)}</span>
-  <p class='price'>₹ ${price * qty}</p>
-  <button onclick='removeItem(this)'><i class='fas fa-trash'></i></button>
-</div>`;
+  let totalQty = cartDetails.reduce((total, item) => {
+    return total + item.qty;
+  }, 0);
+
+  // ✅ FIX: safe update
+  let totalEl = document.getElementsByClassName("total")[0];
+  let qtyEl = document.getElementsByClassName("total-qty")[0];
+
+  if (totalEl) totalEl.innerText = totalPrice;
+  if (qtyEl) qtyEl.innerText = totalQty;
 }
 
 function Banner() {
