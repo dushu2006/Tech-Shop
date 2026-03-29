@@ -256,13 +256,16 @@ function sideNav() {
 
 function buy(handler) {
   if (cartDetails.length == 0) return;
-  sideNav(!handler);
-  document.getElementsByClassName("purchase-cover")[0].style.display = handler
-    ? "block"
-    : "none";
-  document.getElementsByClassName("order-now")[0].innerHTML = handler
-    ? Purchase()
-    : "";
+
+  let container = document.getElementsByClassName("order-now")[0];
+
+  if (handler) {
+    document.getElementsByClassName("purchase-cover")[0].style.display = "block";
+    container.innerHTML = Purchase();
+  } else {
+    document.getElementsByClassName("purchase-cover")[0].style.display = "none";
+    container.innerHTML = "";
+  }
 }
 
 function normalOrder() {
