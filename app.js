@@ -1,3 +1,18 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyCsHFigH6JMpBJIuOrQqwS_hldjuYTV7oE",
+  authDomain: "tech-shop-75a2e.firebaseapp.com",
+  databaseURL: "https://tech-shop-75a2e-default-rtdb.firebaseio.com",
+  projectId: "tech-shop-75a2e",
+  storageBucket: "tech-shop-75a2e.firebasestorage.app",
+  messagingSenderId: "302591694426",
+  appId: "1:302591694426:web:3839f375bb53d4efd0aa63",
+  measurementId: "G-Q2L4L100CH"
+};
+
+// initialize
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
 const productDetails = [
   {
     name: "NovaBeat X Pro",
