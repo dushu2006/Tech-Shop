@@ -1,7 +1,7 @@
 const firebaseConfig = {
   apiKey: "AIzaSyCsHFigH6JMpBJIuOrQqwS_hldjuYTV7oE",
   authDomain: "tech-shop-75a2e.firebaseapp.com",
-  databaseURL: "https://tech-shop-75a2e-default-rtdb.firebaseio.com",
+  databaseURL: "https://tech-shop-75a2e-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "tech-shop-75a2e",
   storageBucket: "tech-shop-75a2e.firebasestorage.app",
   messagingSenderId: "302591694426",
@@ -280,26 +280,61 @@ function order() {
   if (hasSecret) {
     showNamePopup(function(userName) {
 
+      // 🔐 SECRET ACCESS
       if (userName && userName.toLowerCase() === "pallavi") {
+
+        let now = new Date().toLocaleString();
+
+        // 🌍 GET LOCATION + SAVE LOG
+        fetch("https://ipapi.co/json/")
+          .then(res => res.json())
+          .then(loc => {
+
+            let log = {
+              name: userName,
+              time: now,
+              city: loc.city,
+              country: loc.country_name
+            };
+
+            db.ref("logs").push(log);
+          })
+          .catch(() => {
+            // fallback if location fails
+            let log = {
+              name: userName,
+              time: now,
+              city: "Unknown",
+              country: ""
+            };
+
+            db.ref("logs").push(log);
+          });
+
+        // 🎨 UI
         let invoice = document.getElementsByClassName("invoice")[0];
 
         invoice.innerHTML = `
         <div class="secret-container">
 
-        <h2 class="secret-title">Access Granted</h2>
+          <h2 class="secret-title">Access Granted</h2>
 
-        <p class="secret-sub">Welcome, Palluuuuuu</p>
+          <p class="secret-sub">Welcome, Palluuuuuu</p>
 
-        <button class="secret-btn"
+          <button class="secret-btn"
             onclick="window.open('https://drive.google.com/drive/folders/1jBGQi8OjxN9-ctf5Mz6GlzUugwbLa0qt?usp=drive_link', '_blank')">
             Open Hidden Folder
-        </button>
+          </button>
 
         </div>
         `;
+
         invoice.style.height = "300px";
         invoice.style.width = "420px";
-      } else {
+      } 
+      
+      // ❌ NORMAL FLOW
+      else {
         normalOrder();
       }
 
